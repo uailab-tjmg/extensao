@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "UAILab",
+  "description": "Uma extensão para simplificar atividades administrativas",
+  "version": "1.0",
+  "action": {
+    "default_icon": {
+      "16": "assets/icons/logo16.png",
+      "32": "assets/icons/logo32.png"
+    },
+    "default_title": "UAILab"
+  },
+  "icons": {
+    "48": "assets/icons/logo48.png",
+    "128": "assets/icons/logo128.png"
+  },
+  "permissions": ["declarativeContent", "scripting"],
+  "host_permissions": ["https://www.scdp.mg.gov.br/*", "https://pje.tjmg.jus.br/*"],
+  "background": {
+    "service_worker": "services/background.js"
+  },
+  "content_scripts": [
+    {
+      "js": ["contents/scdp.js"],
+      "matches": ["https://www.scdp.mg.gov.br/*"],
+      "include_globs": [
+        "https://www.scdp.mg.gov.br/scdp-web/pages/cadastrar_viagem/cadastrar_viagem_edit.xhtml*"
+      ]
+    },
+    {
+      "js": ["contents/pje.js"],
+      "matches": ["https://pje.tjmg.jus.br/*"],
+      "include_globs": [
+        "https://pje.tjmg.jus.br/pje/Processo/ConsultaProcesso/Detalhe/listAutosDigitais.seam*"
+      ]
+    }
+  ]
+}
