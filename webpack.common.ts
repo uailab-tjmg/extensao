@@ -1,13 +1,11 @@
-import path from "path"
-import webpack from "webpack"
-import CopyWebpackPlugin from "copy-webpack-plugin"
+import path from "path";
+import webpack from "webpack";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 import fg from "fast-glob";
+import {EsbuildPlugin} from 'esbuild-loader';
 
-// Use fast-glob to get all TypeScript and JavaScript files in the src directory
-const entries: { [key: string]: string } = fg.sync("./src/**/*.{ts,tsx,js}").reduce((acc: { [key: string]: string }, file: string) => {
-  // Remove './src/' from the beginning of the path and get the rest
+const entries: Record<string, string> = fg.sync("./src/**/*.{ts,tsx,js}").reduce((acc: Record<string, string>, file: string) => {
   const relativePath = path.relative("./src", file);
-  // Remove the file extension and use the relative path as the key
   const entryKey = relativePath.replace(/\.(ts|tsx|js)$/, '');
   acc[entryKey] = file;
   return acc;
@@ -18,11 +16,29 @@ const config: webpack.Configuration = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      name: 'vendor',
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/](jszip|pdf-lib)[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      },
+    },
+  },
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        loader: "ts-loader",
+        test: /\.(ts|js)$/,
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'ts', // 'ts' or 'js'
+          target: 'es2015',
+          minify: true,
+        },
         exclude: /node_modules/,
       },
       {
@@ -45,13 +61,18 @@ const config: webpack.Configuration = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
-    clean: true, // Clean the output directory before emit.
+    clean: true, // limpa o diretório antes de emitir.
   },
   plugins: [
     new CopyWebpackPlugin({
       patterns: [{ from: "static" }],
     }),
+    new EsbuildPlugin(),
+    new webpack.ProvidePlugin({
+      JSZip: 'jszip',
+      PDFLib: 'pdf-lib',
+    }),
   ],
-}
+};
 
-export default config
+export default config;

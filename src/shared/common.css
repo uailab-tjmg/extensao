@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .arrow-icon {
+    @apply transition-transform duration-300 ease-in-out;
+  }
+
+  .rotate-180 {
+    @apply transform rotate-180;
+  }
+}
