@@ -1,4 +1,3 @@
-import './shared/common.css'
 import { StorageData, ToggleMessage } from './shared/types'
 import { toggleConfig } from './shared/config'
 
@@ -87,5 +86,10 @@ document.addEventListener("DOMContentLoaded", ():void => {
                 }
             }
         });
+    });
+
+    document.getElementById('helpLink')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        void chrome.runtime.openOptionsPage();
     });
 })

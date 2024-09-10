@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "UAILab",
   "description": "Uma extensão para simplificar atividades administrativas",
-  "version": "1.0",
+  "version": "1.0.1",
   "action": {
     "default_icon": {
       "16": "assets/icons/logo16.png",
@@ -15,7 +15,8 @@
     "48": "assets/icons/logo48.png",
     "128": "assets/icons/logo128.png"
   },  
-  "permissions": ["declarativeContent", "storage"],
+  "options_page": "options.html",
+  "permissions": ["storage"],
   "host_permissions": ["https://www.scdp.mg.gov.br/*", "https://scdphomologa.prodemge.gov.br/*", "http://127.0.0.1:5500/SCDP.html*", "https://pje.tjmg.jus.br/*", "https://pjerecursal.tjmg.jus.br/*"],
   "background": {
     "service_worker": "services/background.js"

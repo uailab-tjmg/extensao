@@ -1,11 +1,10 @@
 export function createSpinnerElement(): HTMLDivElement {
     const spinnerElement = document.createElement("div");
     spinnerElement.classList.add("spinner");
-    spinnerElement.innerHTML = `
+    spinnerElement.innerHTML = `        
         <div class="bounce1"></div>
         <div class="bounce2"></div>
-        <div class="bounce3"></div>
-        <span>Aguarde...</span>
+        <div class="bounce3"></div>        
     `;
     return spinnerElement;
 }

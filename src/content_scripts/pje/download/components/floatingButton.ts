@@ -58,6 +58,7 @@ export const manageFloatingButton = (): void => {
         
         const downloadButton = document.getElementById('downloadButton') as HTMLButtonElement;
         downloadButton.textContent = `Download ${checkedBoxes.length.toString()} Documento(s)`;
+        downloadButton.disabled = false;
     } else if (floatingContainer) {
         floatingContainer.remove();
     }

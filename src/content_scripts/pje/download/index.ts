@@ -1,7 +1,8 @@
-import { observeDOMChanges, processAnexosElement } from "./utils/domUtils"
-import { manageFloatingButton } from "./components/floatingButton"
 import "./styles/spinner"
+import { observeDOMChanges } from "./utils/domUtils"
+import { manageFloatingButton } from "./components/floatingButton"
 import { StorageData, ToggleMessage } from "../../../shared/types"
+import { processAnexosElement } from "./components/checkbox"
 
 const SCRIPT_NAME = "pjeDownload"
 
@@ -10,7 +11,7 @@ const initializeScript = (): void => {
   document.querySelectorAll("#divTimeLine .anexos").forEach((anexos) => {
     processAnexosElement(anexos as HTMLElement)
   })
-  observeDOMChanges()
+  observeDOMChanges()  
   manageFloatingButton() // Gerencia o botão flutuante inicialmente
   console.log(`O script ${SCRIPT_NAME} foi executado`)
 }
